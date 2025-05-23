@@ -1,0 +1,226 @@
+﻿@model Indent_Dev.ViewModels.AddIndentViewModel
+
+@{
+    ViewData["Title"] = "AddIndent";
+}
+
+<h1>AddIndent</h1>
+
+<h4>Indent</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Account" asp-action="AddIndent" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group pb-3" >
+                <label asp-for="CategoryName" class="control-label pb-1"></label>
+                <select class ="form-select" id="category" asp-for="SelectedCategory">
+                    <option value="" disabled selected>--Please Select a Category--</option>
+                </select>
+                <span class="text-danger" asp-validation-for="SelectedCategory" ></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="SubCategoryName" class="control-label pb-1" ></label>
+                <select class="form-select" id="subcategory" asp-for="SelectedSubCategory">
+               </select>
+               <span class="text-danger" asp-validation-for="SelectedSubCategory"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="FyQuarter" class="control-label"></label>
+                <input asp-for="FyQuarter" class="form-control" />
+                <span asp-validation-for="FyQuarter" class="text-danger"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="IndentNumber" class="control-label"></label>
+                <input asp-for="IndentNumber" class="form-control" />
+                <span asp-validation-for="IndentNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="NumberOfSlots" class="control-label"></label>
+                <input asp-for="NumberOfSlots" class="form-control" />
+                <span asp-validation-for="NumberOfSlots" class="text-danger"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="Location" class="control-label"></label>
+                <select asp-for="SelectedLocation" class ="form-select" asp-items="Model.LocationsSelectList">
+                    <option value="" disabled selected>--Please Select a Location--</option>
+                </select>
+                <span class="text-danger" asp-validation-for="SelectedLocation"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="Subunit" class="control-label"></label>
+                <input asp-for="Subunit" class ="form-control"/>
+                <span asp-validation-for="Subunit" class="text-danger"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="PU" class="control-label"></label>
+                <input asp-for="PU" class ="form-control" />
+                <span asp-validation-for="PU" class="text-danger"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="JL" class="control-label"></label>
+                <input asp-for="JL" class="form-control" />
+                <span asp-validation-for="JL" class="text-danger"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="Role" class="control-label"></label>
+                <input asp-for="Role" class="form-control" />
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="IndentType" class="control-label"></label>
+                <input asp-for="IndentType" class="form-control" />
+                <span asp-validation-for="IndentType" class="text-danger"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="DateOfRelease" class="control-label"></label>
+                <input asp-for="DateOfRelease" class="form-control" placeholder="YYYY-MM-DD" />
+                <span asp-validation-for="DateOfRelease" class="text-danger"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="DateOfFulfillment" class="control-label"></label>
+                <input asp-for="DateOfFulfillment" class="form-control" placeholder="YYYY-MM-DD" />
+                <span asp-validation-for="DateOfFulfillment" class="text-danger"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="IndentStatus" class="control-label"></label>
+                <select asp-for="SelectedStatus" class ="form-select" asp-items="Model.StatusSelectList">
+                    <option value="" disabled selected>--Please Select a Status--</option>
+                </select>
+                <span class="text-danger" asp-validation-for="SelectedStatus"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="Account" class="control-label"></label>
+                <select asp-for="SelectedAccount" class ="form-select" asp-items="Model.AccountsSelectList">
+                    <option value="" disabled selected >--Please Select an Account--</option>
+                </select>
+                <span class="text-danger" asp-validation-for="SelectedAccount"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="TaSpoc" class="control-label"></label>
+                <select asp-for="SelectedTaSpoc" class ="form-select" asp-items="Model.TaSpocsSelectList">
+                    <option value="" disabled selected>--Please Select a SPOC--</option>
+                </select>
+                <span class = "text-danger" asp-validation-for="SelectedTaSpoc"></span>
+            </div>
+            <div class="form-group pb-3">
+                <label asp-for="Remarks" class="control-label"></label>
+                <input asp-for="Remarks" class="form-control" />
+                <span asp-validation-for="Remarks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+            $(document).ready(function () {
+            $('#category').attr('disabled', true);
+            $('#subCategory').attr('disabled', true);
+            LoadCategories();
+
+            $('#category').change(function() {
+                var category = $(this).val();
+                if (category != "") {
+                    LoadSubCategories(category)
+                }
+                else {
+                    alert("Select Country");
+                    $('#subCategory').attr('disabled', true);
+                    $('#subcategory').append('<option>--Categories not available--</option>');
+                }
+            })
+
+        });
+        function LoadCategories() {
+            $('#category').empty();
+            $.ajax({
+                url: '/Account/GetCategories',
+                success: function (response) {
+                    console.log(response)
+                    if (response != null && response != undefined && response.length > 0) {
+                        $('#category').attr('disabled', false);
+                        $('#category').append('<option value="" disabled selected>--Select a Category--</option>');
+                        $('#subCategory').append(' <option>--Select a Sub Category--</option >');
+                        $.each(response, function (i, data) {
+                            $('#category').append('<option> ' + data.categoryName + '</option>')
+                        });
+                    }
+                    else {
+                        $('#category').attr('disabled', true);
+                        $('#subCategory').attr('disabled', true);
+                        $('#category').append('<option>--Categories not available--</option>');
+                        $('#subCategory').append('<option>--Sub Categories not available--</option>');
+                    }
+                },
+                error: function (error) {
+                    alert(error)
+                }
+            })
+        }
+
+        function LoadSubCategories(category) {
+            $('#subcategory').empty();
+            $.ajax({
+                url: '/Account/GetSubCategoryByCategory?categoryName=' + category,
+                success: function (response) {
+                    console.log(response)
+                    if (response != null && response != undefined && response.length > 0) {
+                        $('#subcategory').attr('disabled', false);
+                        $('#subcategory').append('<option value="" disabled selected>--Select a Sub Category--</option>');
+                        $.each(response, function (i, data) {
+                            $('#subcategory').append('<option> ' + data.subCategoryName + '</option>')
+                        });
+                    }
+                    else {
+                        $('#subCategory').attr('disabled', true);
+                        $('#subCategory').append('<option>--Sub Categories not available--</option>');
+                    }
+                },
+                error: function (error) {
+                    alert(error)
+                }
+            })
+        }
+    </script>
+
+
+
+
+    @* @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function() {
+            getSubCategoryByCategory();
+        })
+        $("#Category").change(function(){
+            getSubCategoryByCategory(); 
+        })
+        var getSubCategoryByCategory = function(){
+            $.ajax({
+                url: '@Url.Action("GetSubCategoryByCategory","Account")',
+                type: 'GET',
+                data: {
+                    categoryName: $('#Category').val(),
+                },
+                success: function(data){
+                    $('#SubCategory').find('option').remove()
+                    $(data).each(
+                    function(index,item){
+                        $('#SubCategory').append('<option>' + item.SubCategoryName + '</option>')
+                    }
+                }
+
+            })
+        }
+    </script> *@
+}
