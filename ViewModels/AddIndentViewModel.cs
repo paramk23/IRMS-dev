@@ -8,7 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Indent_Dev.ViewModels
 {
-    public class AddIndentViewModel 
+    public class AddIndentViewModel
     {
         [DisplayName("Category Name")]
         public string CategoryName { get; set; }
@@ -44,7 +44,7 @@ namespace Indent_Dev.ViewModels
 
 
         [DisplayName("Location")]
-        public string? Location { get; set; } 
+        public string? Location { get; set; }
         public List<SelectListItem> LocationsSelectList { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
@@ -58,12 +58,12 @@ namespace Indent_Dev.ViewModels
 
 
         [Required(ErrorMessage = "This field is required")]
-        public string? PU { get; set; } 
+        public string? PU { get; set; }
 
 
 
         [Required(ErrorMessage = "This field is required")]
-        public string? JL { get; set; } 
+        public string? JL { get; set; }
 
 
 
@@ -77,13 +77,15 @@ namespace Indent_Dev.ViewModels
 
 
         [DisplayName("Date of Release")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString ="{0:dd.MM.yyyy}")]
         [Required(ErrorMessage = "This field is required")]
         public DateOnly? DateOfRelease { get; set; } = null!;
 
 
         [DisplayName("Date of Fulfillment")]
-        [Required(ErrorMessage = "This field is required")]
-        public DateOnly? DateOfFulfillment { get; set; } = null!;
+        
+        public DateOnly? DateOfFulfillment { get; set; } 
 
 
         [DisplayName("Indent Status")]

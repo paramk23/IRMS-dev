@@ -1,0 +1,130 @@
+﻿@model Indent_Dev.ViewModels.AddIndentViewModel;
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<link rel="stylesheet"/>
+
+<h1>Edit</h1>
+
+<h4>Indent</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller ="Account" asp-action="Update" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CategoryName" class="control-label pb-1" style="font-weight:500"></label>
+                <select  asp-for="SelectedCategory" class="form-select" id="" read-only >
+                    <option value="@Model.SelectedCategory" read-only selected> @Model.SelectedCategory </option>
+                </select>
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2" >
+                <label asp-for="SubCategoryName" class="control-label"></label>
+                <select asp-for="SelectedSubCategory" class="form-select" read-only >
+                    <option value="@Model.SelectedSubCategory" read-only selected > @Model.SelectedSubCategory </option>
+                </select>
+                <span asp-validation-for="SubCategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="FyQuarter" class="control-label"></label>
+                <input asp-for="FyQuarter" class="form-control" type="text" readonly />
+                <span asp-validation-for="FyQuarter" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="IndentNumber" class="control-label"></label>
+                <input asp-for="IndentNumber" class="form-control" readonly />
+                <span asp-validation-for="IndentNumber" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="IndentNumber" />
+            <div class="form-group pt-2">
+                <label asp-for="NumberOfSlots" class="control-label"></label>
+                <input asp-for="NumberOfSlots" class="form-control" readonly />
+                <span asp-validation-for="NumberOfSlots" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="Location" class="control-label"></label>
+                <select asp-for="SelectedLocation" class="form-select" readonly >
+                    <option value="@Model.SelectedLocation" selected readonly> @Model.SelectedLocation </option>
+                </select>
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="Subunit" class="control-label"></label>
+                <input asp-for="Subunit" class="form-control" readonly/>
+                <span asp-validation-for="Subunit" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="PU" class="control-label"></label>
+                <input asp-for="PU" class="form-control" readonly/>
+                <span asp-validation-for="PU" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="JL" class="control-label"></label>
+                <input asp-for="JL" class="form-control" readonly/>
+                <span asp-validation-for="JL" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="Role" class="control-label"></label>
+                <input asp-for="Role" class="form-control" readonly/>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="IndentType" class="control-label"></label>
+                <input asp-for="IndentType" class="form-control" readonly/>
+                <span asp-validation-for="IndentType" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="DateOfRelease" class="control-label"></label>
+                <input asp-for="DateOfRelease" class="form-control" readonly/>
+                <span asp-validation-for="DateOfRelease" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="DateOfFulfillment" class="control-label"></label>
+                <div class="input-group">
+                    <input asp-for="DateOfFulfillment" type="date" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calender"></span>
+                    </span>
+                </div>
+                <span asp-validation-for="DateOfFulfillment" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="IndentStatus" class="control-label"></label>
+                <select asp-for="SelectedStatus" class="form-select" asp-items="@Model.StatusSelectList"></select>
+                <span asp-validation-for="IndentStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="Account" class="control-label"></label>
+                <select asp-for="SelectedAccount" class="form-select" read-only>
+                    <option value="@Model.SelectedAccount" selected >@Model.SelectedAccount</option>
+                </select>
+                <span asp-validation-for="Account" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="TaSpoc" class="control-label"></label>
+                <select asp-for="SelectedTaSpoc" class="form-select" read-only>
+                    <option value="@Model.SelectedTaSpoc" selected>@Model.SelectedTaSpoc</option>
+                </select>
+                <span asp-validation-for="TaSpoc" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="Remarks" class="control-label"></label>
+                <input asp-for="Remarks" class="form-control" />
+                <span asp-validation-for="Remarks" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-lg-3" >
+                <input type="submit" value="Save" class="btn btn-primary" style="background-color:darkslateblue" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="pt-lg-2">
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

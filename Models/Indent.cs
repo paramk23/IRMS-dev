@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Indent_Dev.Models;
 
@@ -11,8 +12,10 @@ public partial class Indent
 
     public string? FyQuarter { get; set; }
 
+    [DisplayName("Number")]
     public string IndentNumber { get; set; } = null!;
 
+    [DisplayName("Slots")]
     public byte? NumberOfSlots { get; set; }
 
     public string? Location { get; set; }
@@ -27,8 +30,10 @@ public partial class Indent
 
     public string? IndentType { get; set; }
 
+    [DisplayName("Date of Release")]
     public DateOnly? DateOfRelease { get; set; }
 
+    [DisplayName("Fulfillment")]
     public DateOnly? DateOfFulfillment { get; set; }
 
     public string? IndentStatus { get; set; }

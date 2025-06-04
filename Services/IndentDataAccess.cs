@@ -1,4 +1,6 @@
 ﻿using Indent_Dev.Models;
+using Microsoft.EntityFrameworkCore;
+using NuGet.Versioning;
 
 namespace Indent_Dev.Services
 {
@@ -63,7 +65,26 @@ namespace Indent_Dev.Services
             context.SaveChanges();
             return true;
         }
+
+        public Indent FetchEditDetails(string id)
+        {
+            IrmsDevContext context = new IrmsDevContext();
+            Indent indent = new Indent();
+
+            indent = context.Indents.Where(A => A.IndentNumber == id).FirstOrDefault();
+            return indent;
+        }
+
+        public void updateIndent(string id , Indent updatedIndent)
+        {
+            IrmsDevContext context = new IrmsDevContext();
+            context.Indents.Update(updatedIndent);
+            context.SaveChanges();
+        }
     }
+    
+
+
 
     //public class List<SubCategory> GetSubCategoryBasedCategory()
     //{

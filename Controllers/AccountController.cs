@@ -80,36 +80,34 @@ namespace Indent_Dev.Controllers
         [HttpPost]
         public ActionResult AddIndent(AddIndentViewModel model)
         {
-                IndentDataAccess indentDataAccess = new IndentDataAccess();
+            IndentDataAccess indentDataAccess = new IndentDataAccess();
 
-                Indent indentObj = new Indent();
-                indentObj.Category = model.SelectedCategory;
-                indentObj.SubCategory = model.SelectedSubCategory;
-                indentObj.FyQuarter = model.FyQuarter;
-                indentObj.IndentNumber = model.IndentNumber;
-                indentObj.NumberOfSlots = model.NumberOfSlots;
-                indentObj.Location = model.SelectedLocation;
-                indentObj.Subunit = model.Subunit;
-                indentObj.PU = model.PU;
-                indentObj.JL = model.JL;
-                indentObj.Role = model.Role;
-                indentObj.IndentType = model.IndentType;
-                indentObj.DateOfRelease = model.DateOfRelease;
-                indentObj.DateOfFulfillment = model.DateOfFulfillment;
-                indentObj.IndentStatus = model.SelectedStatus;
-                indentObj.Account = model.SelectedAccount;
-                indentObj.TaSpoc = model.SelectedTaSpoc;
-                indentObj.Remarks = model.Remarks;
-                //if (ModelState.IsValid)
-                //{
-                //    indentDataAccess.AddIndent(indentObj);
-                //    return RedirectToAction("Index");
-                //}
+            Indent indentObj = new Indent();
+            indentObj.Category = model.SelectedCategory;
+            indentObj.SubCategory = model.SelectedSubCategory;
+            indentObj.FyQuarter = model.FyQuarter;
+            indentObj.IndentNumber = model.IndentNumber;
+            indentObj.NumberOfSlots = model.NumberOfSlots;
+            indentObj.Location = model.SelectedLocation;
+            indentObj.Subunit = model.Subunit;
+            indentObj.PU = model.PU;
+            indentObj.JL = model.JL;
+            indentObj.Role = model.Role;
+            indentObj.IndentType = model.IndentType;
+            indentObj.DateOfRelease = model.DateOfRelease;
+            indentObj.DateOfFulfillment = model.DateOfFulfillment;
+            indentObj.IndentStatus = model.SelectedStatus;
+            indentObj.Account = model.SelectedAccount;
+            indentObj.TaSpoc = model.SelectedTaSpoc;
+            indentObj.Remarks = model.Remarks;
+
+            //if (ModelState.IsValid)
+            //{
+            //    indentDataAccess.AddIndent(indentObj);
+            //    return RedirectToAction("Index");
+            //}
+            indentDataAccess.AddIndent(indentObj);
             return RedirectToAction("Index");
-
-
-
-
         }
 
         public JsonResult GetSubCategoryByCategory(string categoryName)
@@ -148,24 +146,70 @@ namespace Indent_Dev.Controllers
         }
 
         // GET: AccountController/Edit/5
-        public ActionResult Edit(int id)
+
+        public ActionResult Edit(string id)
         {
-            return View();
+            IndentDataAccess indentDataAccess = new IndentDataAccess();
+            Indent indent = new Indent();
+            AddIndentViewModel model = new AddIndentViewModel();
+            indent = indentDataAccess.FetchEditDetails(id);
+            model.SelectedCategory = indent.Category;
+            model.SelectedSubCategory = indent.SubCategory;
+            model.FyQuarter = indent.FyQuarter;
+            model.IndentNumber = indent.IndentNumber;
+            model.NumberOfSlots = indent.NumberOfSlots;
+            model.SelectedLocation = indent.Location;
+            model.Subunit = indent.Subunit;
+            model.PU = indent.PU;
+            model.JL = indent.JL;
+            model.Role = indent.Role;
+            model.IndentType = indent.IndentType;
+            model.DateOfRelease = indent.DateOfRelease;
+            model.DateOfFulfillment = indent.DateOfFulfillment;
+            var Statuses = indentDataAccess.GetIndentStatusForNew();
+            model.StatusSelectList = new List<SelectListItem>();
+            foreach (var stat in Statuses)
+            {
+                model.StatusSelectList.Add(new SelectListItem { Text = stat.IndentStatus1 });
+            }
+
+            model.SelectedStatus = indent.IndentStatus;
+            model.SelectedAccount = indent.Account;
+            model.SelectedTaSpoc = indent.TaSpoc;
+            model.Remarks = indent.Remarks;
+            return View(model);
         }
 
         // POST: AccountController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Update(string id, AddIndentViewModel model)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            IndentDataAccess indentDataAccess = new IndentDataAccess(); 
+            Indent indent = new Indent();
+            indent.Category = model.SelectedCategory;
+            indent.SubCategory = model.SelectedSubCategory;
+            indent.FyQuarter = model.FyQuarter;
+            indent.IndentNumber = model.IndentNumber;
+            indent.NumberOfSlots = model.NumberOfSlots;
+            indent.Location = model.SelectedLocation;
+            indent.Subunit = model.Subunit;
+            indent.PU = model.PU;
+            indent.JL = model.JL;
+            indent.Role = model.Role;
+            indent.IndentType = model.IndentType;
+            indent.DateOfRelease = model.DateOfRelease;
+            indent.DateOfFulfillment = model.DateOfFulfillment;
+            indent.IndentStatus = model.SelectedStatus;
+            indent.Account = model.SelectedAccount;
+            indent.TaSpoc = model.SelectedTaSpoc;
+            indent.Remarks = model.Remarks;
+
+
+            indentDataAccess.updateIndent(id, indent);
+
+            return RedirectToAction("Index");
+            
         }
 
         // GET: AccountController/Delete/5

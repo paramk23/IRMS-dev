@@ -6,16 +6,20 @@
     ViewData["Title"] = "Index";
 }
 
+
+<link rel="stylesheet" type="text/css" href="~/css/index_style.css"/>
 <h1></h1>
 <body>
-    <p>
-        <div >
-            <button class="rounded-2 " style="width:170px; height:50px;"><a style="font-size:medium" asp-action="AddIndent">Create New Indent</a></button>
-            
-        </div>
-        
-    </p>
-    <table class="table">
+    <div>
+        <p>
+            <a asp-action="AddIndent">
+                <button class="rounded-2 btn-md " style="width:170px; height:50px; background-color:darkslateblue;color:#ffffff;">Create a new Indent</button>
+            </a>
+        </p>
+    </div>
+
+    <div class="container">
+    <table class="content-table table-group-divider">
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(model => model.Category)</th>
@@ -24,54 +28,44 @@
                 <th>@Html.DisplayNameFor(model => model.IndentNumber)</th>
                 <th>@Html.DisplayNameFor(model => model.NumberOfSlots)</th>
                 <th>@Html.DisplayNameFor(model => model.Location)</th>
-                <th>   @Html.DisplayNameFor(model => model.Subunit) </th>
+                <th>@Html.DisplayNameFor(model => model.Subunit) </th>
                 <th>@Html.DisplayNameFor(model => model.PU)</th>
-                <th>    @Html.DisplayNameFor(model => model.JL) </th>
-                <th>   @Html.DisplayNameFor(model => model.Role)   </th>
-                <th>   @Html.DisplayNameFor(model => model.IndentType) </th>
-                <th> @Html.DisplayNameFor(model => model.DateOfRelease) </th>
-                <th>   @Html.DisplayNameFor(model => model.DateOfFulfillment) </th>
-                <th> @Html.DisplayNameFor(model => model.IndentStatus) </th>
-                <th>   @Html.DisplayNameFor(model => model.Account)</th>
-                <th> @Html.DisplayNameFor(model => model.TaSpoc) </th>
-                <th> @Html.DisplayNameFor(model => model.Remarks)</th>
-
-
-                <th></th>
+                <th>@Html.DisplayNameFor(model => model.JL) </th>
+                <th>@Html.DisplayNameFor(model => model.Role)   </th>
+                <th>@Html.DisplayNameFor(model => model.IndentType) </th>
+                <th>@Html.DisplayNameFor(model => model.DateOfRelease) </th>
+                <th>@Html.DisplayNameFor(model => model.DateOfFulfillment) </th>
+                <th>@Html.DisplayNameFor(model => model.IndentStatus) </th>
+                <th>@Html.DisplayNameFor(model => model.Account)</th>
+                <th>@Html.DisplayNameFor(model => model.TaSpoc) </th>
+                <th>@Html.DisplayNameFor(model => model.Remarks)</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in @Model)
             {
                 <tr>
-                    <td>  @Html.DisplayFor(modelItem => item.Category)</td>
-                    <td> @Html.DisplayFor(modelItem => item.SubCategory) </td>
-                    <td>  @Html.DisplayFor(modelItem => item.FyQuarter) </td>
+                    <td>@Html.DisplayFor(modelItem => item.Category)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SubCategory)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FyQuarter)</td>
                     <td>@Html.DisplayFor(modelItem => item.IndentNumber)</td>
-                    <td> @Html.DisplayFor(modelItem => item.NumberOfSlots) </td>
-                    <td> @Html.DisplayFor(modelItem => item.Location) </td>
-                    <td> @Html.DisplayFor(modelItem => item.Subunit) </td>
+                    <td>@Html.DisplayFor(modelItem => item.NumberOfSlots)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Subunit)</td>
                     <td>@Html.DisplayFor(modelItem => item.PU)</td>
-                    <td> @Html.DisplayFor(modelItem => item.JL) </td>
-                    <td>  @Html.DisplayFor(modelItem => item.Role) </td>
-                    <td>  @Html.DisplayFor(modelItem => item.IndentType)</td>
-                    <td>  @Html.DisplayFor(modelItem => item.DateOfRelease)  </td>
-                    <td> @Html.DisplayFor(modelItem => item.DateOfFulfillment) </td>
-                    <td>  @Html.DisplayFor(modelItem => item.IndentStatus) </td>
-                    <td>   @Html.DisplayFor(modelItem => item.Account)  </td>
-                    <td>    @Html.DisplayFor(modelItem => item.TaSpoc)  </td>
-                    <td>   @Html.DisplayFor(modelItem => item.Remarks)     </td>
-
-
-
-
-                    @* <td>
-                <a asp-action="Edit" asp-route-id="@item.IndentNumber">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IndentNumber">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IndentNumber">Delete</a>
-            </td> *@
-                </tr>
+                    <td>@Html.DisplayFor(modelItem => item.JL)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Role)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IndentType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DateOfRelease)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DateOfFulfillment)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IndentStatus)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Account)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TaSpoc)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Remarks)</td>
+                    <td> <a style="color:midnightblue" asp-action="Edit" asp-route-id="@item.IndentNumber"> <i class="bi bi-pencil-square " style="font-size:1.7em"></i> </a> </td>      
+               </tr>
             }
         </tbody>
     </table>
+    </div>
 </body>

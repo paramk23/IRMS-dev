@@ -43,7 +43,7 @@
             <div class="form-group pb-3">
                 <label asp-for="Location" class="control-label"></label>
                 <select asp-for="SelectedLocation" class ="form-select" asp-items="Model.LocationsSelectList">
-                    <option value="" disabled selected>--Please Select a Location--</option>
+                    <option value="" selected>--Please Select a Location--</option>
                 </select>
                 <span class="text-danger" asp-validation-for="SelectedLocation"></span>
             </div>
@@ -74,7 +74,13 @@
             </div>
             <div class="form-group pb-3">
                 <label asp-for="DateOfRelease" class="control-label"></label>
-                <input asp-for="DateOfRelease" class="form-control" placeholder="YYYY-MM-DD" />
+                <div class='input-group date'>
+                    <input asp-for="DateOfRelease" type="date" class="form-control"   />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calender"></span>
+                    </span>
+
+                </div>
                 <span asp-validation-for="DateOfRelease" class="text-danger"></span>
             </div>
             <div class="form-group pb-3">
@@ -85,21 +91,21 @@
             <div class="form-group pb-3">
                 <label asp-for="IndentStatus" class="control-label"></label>
                 <select asp-for="SelectedStatus" class ="form-select" asp-items="Model.StatusSelectList">
-                    <option value="" disabled selected>--Please Select a Status--</option>
+                    <option value="" selected>--Please Select a Status--</option>
                 </select>
                 <span class="text-danger" asp-validation-for="SelectedStatus"></span>
             </div>
             <div class="form-group pb-3">
                 <label asp-for="Account" class="control-label"></label>
                 <select asp-for="SelectedAccount" class ="form-select" asp-items="Model.AccountsSelectList">
-                    <option value="" disabled selected >--Please Select an Account--</option>
+                    <option value="" selected >--Please Select an Account--</option>
                 </select>
                 <span class="text-danger" asp-validation-for="SelectedAccount"></span>
             </div>
             <div class="form-group pb-3">
                 <label asp-for="TaSpoc" class="control-label"></label>
                 <select asp-for="SelectedTaSpoc" class ="form-select" asp-items="Model.TaSpocsSelectList">
-                    <option value="" disabled selected>--Please Select a SPOC--</option>
+                    <option value="" selected>--Please Select a SPOC--</option>
                 </select>
                 <span class = "text-danger" asp-validation-for="SelectedTaSpoc"></span>
             </div>
@@ -109,7 +115,7 @@
                 <span asp-validation-for="Remarks" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary " style="background-color:darkslateblue" />
             </div>
         </form>
     </div>
@@ -123,7 +129,15 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    @* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script> *@
+    
+
     <script>
+            // <link rel="stylesheet" href="https:cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+            // <link rel="stylesheet" href="https:cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
             $(document).ready(function () {
             $('#category').attr('disabled', true);
             $('#subCategory').attr('disabled', true);
@@ -140,8 +154,7 @@
                     $('#subcategory').append('<option>--Categories not available--</option>');
                 }
             })
-
-        });
+       }); 
         function LoadCategories() {
             $('#category').empty();
             $.ajax({
@@ -191,36 +204,6 @@
                     alert(error)
                 }
             })
-        }
+       }
     </script>
-
-
-
-
-    @* @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        $(document).ready(function() {
-            getSubCategoryByCategory();
-        })
-        $("#Category").change(function(){
-            getSubCategoryByCategory(); 
-        })
-        var getSubCategoryByCategory = function(){
-            $.ajax({
-                url: '@Url.Action("GetSubCategoryByCategory","Account")',
-                type: 'GET',
-                data: {
-                    categoryName: $('#Category').val(),
-                },
-                success: function(data){
-                    $('#SubCategory').find('option').remove()
-                    $(data).each(
-                    function(index,item){
-                        $('#SubCategory').append('<option>' + item.SubCategoryName + '</option>')
-                    }
-                }
-
-            })
-        }
-    </script> *@
 }
